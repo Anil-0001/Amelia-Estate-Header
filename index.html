@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amelia Estate Premium Header</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        window.tailwind = { config: { corePlugins: { preflight: false } } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media.css">
+</head>
+<body id="top">
+    <header class="premium-header" id="siteHeader">
+        <div class="header-shell">
+            <a class="brand-group" href="#top" aria-label="Amelia Estate home">
+                <span class="brand brand-amelia">
+                    <img src="logo.png" alt="Amelia Estate">
+                </span>
+            </a>
+
+            <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+                <a href="#about">About Us</a>
+                <button class="nav-mega-trigger" type="button" data-mega-target="plansMega" aria-expanded="false">
+                    Plans <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <button class="nav-mega-trigger" type="button" data-mega-target="locationMega" aria-expanded="false">
+                    Location <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <a href="#price">Price</a>
+                <a href="#amenities">Amenities</a>
+                <a href="#specification">Specification</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact Us</a>
+            </nav>
+
+            <div class="header-actions">
+                <a class="call-link" href="tel:+919999999999" aria-label="Call us">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+                <a class="site-visit-btn" href="#contact">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Book Site Visit</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+            <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Amelia Estate II mobile menu">
+                <div class="mobile-menu-top">
+                    <div>
+                        <span>Amelia Estate II</span>
+                        <h2>Private Residences</h2>
+                    </div>
+                    <button class="mobile-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <nav class="mobile-menu-nav" aria-label="Mobile navigation">
+                    <a href="#about" style="--item-index: 1">Residence</a>
+                    <div class="mobile-accordion" style="--item-index: 2">
+                        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">
+                            Plans <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <div class="mobile-submenu">
+                            <a href="#plans">The Belmont</a>
+                            <a href="#plans">The Avenue</a>
+                            <a href="#plans">The Atelier</a>
+                        </div>
+                    </div>
+                    <a href="#gallery" style="--item-index: 3">Gallery</a>
+                    <div class="mobile-accordion" style="--item-index: 4">
+                        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">
+                            Location <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <div class="mobile-submenu">
+                            <a href="#location">PR-7 Airport Road</a>
+                            <a href="#location">Chandigarh Airport</a>
+                            <a href="#location">Aerocity</a>
+                            <a href="#location">Elante Mall</a>
+                        </div>
+                    </div>
+                    <a href="#price" style="--item-index: 5">Price</a>
+                    <a href="#faq" style="--item-index: 6">FAQ</a>
+                </nav>
+
+                <div class="mobile-action-bar">
+                    <a class="mobile-action-icon" href="https://wa.me/919350489533" aria-label="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a class="mobile-action-icon" href="tel:+919350489533" aria-label="Call now">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>Call Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mega-layer" id="plansMega" data-mega-panel>
+            <div class="mega-card plans-mega">
+                <div class="mega-heading">
+                    <span>Three Layouts - One Private Lift</span>
+                    <a href="#plans">Compare All <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="plan-grid">
+                    <article class="plan-card">
+                        <div class="plan-image">
+                            <img src="hovermodel1.webp" alt="The Belmont apartment layout">
+                            <span>Signature</span>
+                        </div>
+                        <div class="plan-body">
+                            <p class="plan-size">230 <small>Sq.Yd</small></p>
+                            <h3>The Belmont</h3>
+                            <p>Largest layout with exclusive roof rights on the top floor.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-circle"></i> Roof terrace</li>
+                                <li><i class="fa-solid fa-circle"></i> Master + walk-in</li>
+                                <li><i class="fa-solid fa-circle"></i> Double-height entry</li>
+                            </ul>
+                            <a href="#plans">View Plan <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="plan-card">
+                        <div class="plan-image">
+                            <img src="hovermodel2.webp" alt="The Avenue apartment layout">
+                            <span>Most Loved</span>
+                        </div>
+                        <div class="plan-body">
+                            <p class="plan-size">219 <small>Sq.Yd</small></p>
+                            <h3>The Avenue</h3>
+                            <p>Wide living room and a generous master with walk-in wardrobe.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-circle"></i> Wide living</li>
+                                <li><i class="fa-solid fa-circle"></i> Store + utility</li>
+                                <li><i class="fa-solid fa-circle"></i> North-light kitchen</li>
+                            </ul>
+                            <a href="#plans">View Plan <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="plan-card">
+                        <div class="plan-image">
+                            <img src="hovermodel3.webp" alt="The Atelier apartment layout">
+                            <span>Best Value</span>
+                        </div>
+                        <div class="plan-body">
+                            <p class="plan-size">205 <small>Sq.Yd</small></p>
+                            <h3>The Atelier</h3>
+                            <p>Smartest entry with private lift, store and vastu-aligned planning.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-circle"></i> Private lift</li>
+                                <li><i class="fa-solid fa-circle"></i> Stilt + store</li>
+                                <li><i class="fa-solid fa-circle"></i> 3 BHK + store</li>
+                            </ul>
+                            <a href="#plans">View Plan <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="mega-foot">
+                    <span><i class="fa-solid fa-car"></i> S+4 with lift</span>
+                    <span><i class="fa-solid fa-compass-drafting"></i> Vastu-aligned</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> RERA approved</span>
+                    <a href="#price">Get Cost Sheet</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mega-layer location-layer" id="locationMega" data-mega-panel>
+            <div class="mega-card location-mega">
+                <div class="location-photo">
+                    <img src="price1.webp" alt="PR-7 Airport Road Mohali">
+                    <div>
+                        <span>The Address</span>
+                        <h3>PR-7 Airport Road, Mohali.</h3>
+                        <p>Sealed gated community, minutes from Aerocity belt.</p>
+                        <a href="#location">Open on Map <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="drive-panel">
+                    <div class="drive-head">
+                        <span>Drive Times</span>
+                        <span>Private Road Gate</span>
+                    </div>
+                    <div class="drive-grid">
+                        <div class="drive-item">
+                            <strong>02 <small>Min</small></strong>
+                            <p>PR-7 Airport Road <span>Direct Frontage</span></p>
+                        </div>
+                        <div class="drive-item">
+                            <strong>05 <small>Min</small></strong>
+                            <p>Aerocity, Mohali <span>Commercial Hub</span></p>
+                        </div>
+                        <div class="drive-item">
+                            <strong>12 <small>Min</small></strong>
+                            <p>Chandigarh Intl Airport <span>Domestic & Intl.</span></p>
+                        </div>
+                        <div class="drive-item">
+                            <strong>18 <small>Min</small></strong>
+                            <p>ISB & IISER Mohali <span>Education Belt</span></p>
+                        </div>
+                        <div class="drive-item">
+                            <strong>22 <small>Min</small></strong>
+                            <p>Sector 17, Chandigarh <span>Heritage Shopping</span></p>
+                        </div>
+                        <div class="drive-item">
+                            <strong>25 <small>Min</small></strong>
+                            <p>Elante Mall <span>Retail & Dining</span></p>
+                        </div>
+                    </div>
+                    <div class="advisor-row">
+                        <div>
+                            <span>Speak to a Residence Advisor</span>
+                            <strong>+91 93504 89533</strong>
+                        </div>
+                        <a href="#contact">Book Visit <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="preview-hero" id="about">
+            <div class="hero-content">
+                <p class="eyebrow">Premium Residential Estate</p>
+                <h1>Amelia Estate</h1>
+                <p class="hero-text">A sharp, luxury header inspired by the reference, connected with clean HTML, CSS, JavaScript, and Font Awesome icons.</p>
+                <a class="hero-action" href="#contact">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Enquire Now
+                </a>
+            </div>
+        </section>
+
+        <section class="content-strip" id="plans">
+            <span>Plans</span>
+            <span id="location">Location</span>
+            <span id="price">Price</span>
+            <span id="amenities">Amenities</span>
+            <span id="specification">Specification</span>
+            <span id="gallery">Gallery</span>
+            <span id="faq">FAQ</span>
+            <span id="contact">Contact Us</span>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
