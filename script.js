@@ -5,22 +5,18 @@ const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuClose = document.getElementById('mobileMenuClose');
 const mobileAccordions = document.querySelectorAll('.mobile-accordion');
 const mainNav = document.getElementById('mainNav');
-const megaTriggers = document.querySelectorAll('[data-mega-target]');
-const megaPanels = document.querySelectorAll('[data-mega-panel]');
 const desktopMegaQuery = window.matchMedia('(min-width: 1081px)');
+const priceTabs = document.querySelectorAll('.price-tab');
+const priceUnlockForm = document.getElementById('priceUnlockForm');
+const downloadUnlockForm = document.getElementById('downloadUnlockForm');
+const contactVisitForm = document.getElementById('contactVisitForm');
+const leadStorageKey = 'ameliaPriceLead';
+const downloadStorageKey = 'ameliaDownloadLead';
+const visitStorageKey = 'ameliaVisitLead';
 
 const setHeaderState = () => {
     if (!siteHeader) return;
     siteHeader.classList.toggle('scrolled', window.scrollY > 10);
-};
-
-const closeMegaMenus = () => {
-    megaPanels.forEach((panel) => panel.classList.remove('is-open'));
-    megaTriggers.forEach((trigger) => {
-        trigger.classList.remove('is-active');
-        trigger.setAttribute('aria-expanded', 'false');
-    });
-    document.body.classList.remove('mega-open');
 };
 
 const closeMobileAccordions = (exceptAccordion = null) => {
@@ -55,28 +51,9 @@ const openMenu = () => {
     menuToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 };
 
-const openMegaMenu = (trigger) => {
-    const targetId = trigger.dataset.megaTarget;
-    const targetPanel = document.getElementById(targetId);
-    const isAlreadyOpen = targetPanel?.classList.contains('is-open');
-
-    if (!targetPanel || isAlreadyOpen) return;
-
-    closeMenu();
-    closeMegaMenus();
-
-    targetPanel.classList.add('is-open');
-    trigger.classList.add('is-active');
-    trigger.setAttribute('aria-expanded', 'true');
-
-    if (!desktopMegaQuery.matches) {
-        document.body.classList.add('mega-open');
-    }
-};
-
 if (menuToggle && mainNav) {
     menuToggle.addEventListener('click', () => {
-        closeMegaMenus();
+        if (desktopMegaQuery.matches) return;
 
         if (mobileMenu?.classList.contains('is-open') || mainNav.classList.contains('is-open')) {
             closeMenu();
@@ -88,13 +65,6 @@ if (menuToggle && mainNav) {
     mainNav.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
             closeMenu();
-            closeMegaMenus();
-        });
-
-        link.addEventListener('mouseenter', () => {
-            if (desktopMegaQuery.matches) {
-                closeMegaMenus();
-            }
         });
     });
 
@@ -136,60 +106,157 @@ mobileAccordions.forEach((accordion) => {
 if (brandHome) {
     brandHome.addEventListener('click', () => {
         closeMenu();
-        closeMegaMenus();
     });
 }
 
-megaTriggers.forEach((trigger) => {
-    trigger.addEventListener('click', (event) => {
-        event.stopPropagation();
+priceTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+        priceTabs.forEach((item) => item.classList.remove('is-active'));
+        tab.classList.add('is-active');
 
-        if (!desktopMegaQuery.matches) {
-            openMegaMenu(trigger);
-        }
-    });
-
-    trigger.addEventListener('mouseenter', () => {
-        if (desktopMegaQuery.matches) {
-            openMegaMenu(trigger);
-        }
-    });
-
-    trigger.addEventListener('focus', () => {
-        if (desktopMegaQuery.matches) {
-            openMegaMenu(trigger);
+        const variantInput = priceUnlockForm?.querySelector('input[name="variant"]');
+        if (variantInput) {
+            variantInput.value = tab.dataset.priceSize || tab.textContent.trim();
         }
     });
 });
 
-megaPanels.forEach((panel) => {
-    panel.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+if (priceUnlockForm) {
+    let savedLead = null;
 
-    panel.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', closeMegaMenus);
-    });
-});
-
-document.addEventListener('click', (event) => {
-    if (!siteHeader?.contains(event.target)) {
-        closeMegaMenus();
+    try {
+        savedLead = JSON.parse(localStorage.getItem(leadStorageKey) || 'null');
+    } catch (error) {
+        savedLead = null;
     }
-});
 
-if (siteHeader) {
-    siteHeader.addEventListener('mouseleave', () => {
-        if (desktopMegaQuery.matches) {
-            closeMegaMenus();
+    if (savedLead) {
+        priceUnlockForm.elements.name.value = savedLead.name || '';
+        priceUnlockForm.elements.phone.value = savedLead.phone || '';
+        priceUnlockForm.elements.variant.value = savedLead.variant || priceUnlockForm.elements.variant.value;
+    }
+
+    priceUnlockForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(priceUnlockForm);
+        const name = String(formData.get('name') || '').trim();
+        const phone = String(formData.get('phone') || '').trim();
+        const variant = String(formData.get('variant') || '230 - Premium').trim();
+        const cleanPhone = phone.replace(/[^\d+]/g, '');
+
+        if (!name || cleanPhone.length < 10) {
+            priceUnlockForm.classList.add('has-error');
+            return;
         }
+
+        priceUnlockForm.classList.remove('has-error');
+
+        const lead = {
+            name,
+            phone: cleanPhone,
+            variant,
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(leadStorageKey, JSON.stringify(lead));
+
+        const message = `Hi, I am ${name}. Please unlock the best price for Amelia Estate ${variant}. My phone number is ${cleanPhone}.`;
+        window.open(`https://wa.me/919350489533?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+    });
+}
+
+if (downloadUnlockForm) {
+    let savedDownloadLead = null;
+
+    try {
+        savedDownloadLead = JSON.parse(localStorage.getItem(downloadStorageKey) || 'null');
+    } catch (error) {
+        savedDownloadLead = null;
+    }
+
+    if (savedDownloadLead) {
+        downloadUnlockForm.elements.name.value = savedDownloadLead.name || '';
+        downloadUnlockForm.elements.phone.value = savedDownloadLead.phone || '';
+    }
+
+    downloadUnlockForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(downloadUnlockForm);
+        const name = String(formData.get('name') || '').trim();
+        const phone = String(formData.get('phone') || '').trim();
+        const cleanPhone = phone.replace(/[^\d+]/g, '');
+
+        if (!name || cleanPhone.length < 10) {
+            downloadUnlockForm.classList.add('has-error');
+            return;
+        }
+
+        downloadUnlockForm.classList.remove('has-error');
+
+        const lead = {
+            name,
+            phone: cleanPhone,
+            request: 'Private Vault Downloads',
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(downloadStorageKey, JSON.stringify(lead));
+
+        const message = `Hi, I am ${name}. Please send Amelia Estate brochure, floor plans, prices and approvals. My phone number is ${cleanPhone}.`;
+        window.open(`https://wa.me/919350489533?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+    });
+}
+
+if (contactVisitForm) {
+    let savedVisitLead = null;
+
+    try {
+        savedVisitLead = JSON.parse(localStorage.getItem(visitStorageKey) || 'null');
+    } catch (error) {
+        savedVisitLead = null;
+    }
+
+    if (savedVisitLead) {
+        contactVisitForm.elements.name.value = savedVisitLead.name || '';
+        contactVisitForm.elements.phone.value = savedVisitLead.phone || '';
+        contactVisitForm.elements.unit.value = savedVisitLead.unit || contactVisitForm.elements.unit.value;
+    }
+
+    contactVisitForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(contactVisitForm);
+        const name = String(formData.get('name') || '').trim();
+        const phone = String(formData.get('phone') || '').trim();
+        const unit = String(formData.get('unit') || '3 BHK - 219').trim();
+        const cleanPhone = phone.replace(/[^\d+]/g, '');
+
+        if (!name || cleanPhone.length < 10) {
+            contactVisitForm.classList.add('has-error');
+            setTimeout(() => contactVisitForm.classList.remove('has-error'), 320);
+            return;
+        }
+
+        const lead = {
+            name,
+            phone: cleanPhone,
+            unit,
+            request: 'Private Site Visit',
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(visitStorageKey, JSON.stringify(lead));
+
+        const message = `Hi, I am ${name}. I want to book a private site visit for Amelia Estate. Preferred unit: ${unit}. My phone number is ${cleanPhone}.`;
+        window.open(`https://wa.me/917009247378?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
     });
 }
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeMenu();
-        closeMegaMenus();
     }
 });
 
